@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+    <title>Users</title>
+    <style>
+    div {
+         background-color: #111 !important; color: white !important; }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/8dd91d71f4.js" crossorigin="anonymous"></script>
+    <style>
+        body        { padding-top:80px; }
+        div {
+         padding-left: 50px;
+        padding-right: 50px;
+        }
+        body { background-color: black; }
+    </style>
+</head>
+<body>
+<div class='container'>
+    <div class="jumbotron text-center text-primary bg-black">
+        <h1><i class="far fa-window-maximize"></i> Requests </h1>
+        <p>
+        Total requests: <%=requests%>
+        <br>
+        <br>
+        Your requests:
+        <br>
+Authetucated: <%=Myrequests.authed%> (Google logged in)
+        <br>
+Overall <%=Myrequests.total%> Requests by Saahil
+        </p>
+
+    </div>
+    </div>
+<div class="container">
+    <div class="jumbotron text-center text-primary bg-black">
+        <h1><i class="fas fa-users"></i> Users </h1>
+        <p>There are <%=users.length%> users that have logged in and that are apart of the saintfrancisschool.org comunity!<br> Below are some of the users detials</p>
+        <br>
+      
+        <% for(let i = 0; i < users.length;i++) { 
+        const user = users[i];
+        %>
+         <% 
+        let ROLE = 'None was applied :o'
+  if(user.email.startsWith('saahildutta')) { ROLE ='Me, Dev'}
+   else if([].some((e) => user.email.startsWith(e))) { ROLE='contributor'}
+  else { ROLE='Guest'}
+  let pages = Object.entries(user.request_pages || {})
+  console.log(pages)
+  %>
+  
+<img src='<%=user.picture%>'></img>
+<h1> <%=user.name%></h1>
+<p> 
+First name:<%=user.given_name%>
+<br>
+Last name:<%=user.family_name%>
+<br>
+Email: <a href='mailto:<%=user.email%>'> <%=user.email%> </a>
+<br>
+Last login:
+<%=new Date(user.lastlogin).toLocaleString('en-US', { timeZone: 'America/New_York' })%>
+<br>
+Login count:
+<%=user.logins || 1%>
+ <br>
+Ip:<br>
+<%=user.ip%>
+Ip Info:<br>
+country: <%=user.ip_info.country%><br>
+range: <%=user.ip_info.range%>
+<br>
+Timezone: <%=user.ip_info.timezone%>
+<br>
+City: <%=user.ip_info.city%>
+<br>
+region: <%=user.ip_info.region%>
+<br>
+
+<h3> Request info </h3>
+requests: <%=user.requests%>
+<br>
+last Request info:
+<br>
+url: <a href='https://LASS-SITE.neonwefokwaf.repl.co<%=user.last_request_url%>'>https://LASS-SITE.neonwefokwaf.repl.co<%=user.last_request_url%></a>
+<br>
+Timestamp:
+ 
+<%=new Date(user.last_request_timestamp).toLocaleString('en-US', { timeZone: 'America/New_York' })%>
+
+Visted Pages: <ul>
+<% for ( const arr of pages) {%>
+ <% if(!arr) arr = ['/', 0] %>
+ <% const [name, count] = arr %>
+ <li> <a href='https://LASS-SITE.neonwefokwaf.repl.co<%=name%>'> https://LASS-SITE.neonwefokwaf.repl.co<%=name%></a> <%=count%> requests</li>
+<% } %>
+</ul>
+Role:
+  <%=ROLE%>
+</p>
+<br>
+<% } %>
+    </div>
+</div>
+</body>
+</html> 

@@ -1,0 +1,8 @@
+/* Show it's not fixed to the top */
+body {
+  min-height: 75rem;
+}
+.dark-mode {
+  background-color: #111;
+  color: white
+}
